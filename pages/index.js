@@ -4,6 +4,7 @@ import  Timer from "/components/Timer"
 import  About from "/components/About"
 import  Alarm from "/components/Alarm"
 import  ModalSetting from "/components/ModalSetting"
+import ParticleBackground from "/components/ParticleBackground"; 
 
 
 
@@ -112,7 +113,13 @@ export default function Home() {
 		};
 	},[seconds,pomodoro,shortBreak,longBreak,ticking])
 	return(
-		<div className="bg-gray-900 min-h-screen font-inter">
+		
+
+		<div className="bg-gray-900 min-h-screen font-inter relative">
+			<div className="animated-background"></div>
+			<ParticleBackground /> 
+			 <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-blue-500 opacity-20 pointer-events-none" />
+
 			<div className="max-w-2xl min-h-screen  mx-auto">
 				<Navi setOpenSetting={setOpenSetting}/>
 				<Timer stage = {stage} switchStage = {switchStage} getTickingTime = {getTickingTime}
