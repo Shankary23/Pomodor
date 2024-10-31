@@ -1,0 +1,13 @@
+{
+    "build": {
+      "env": {
+        "NODE_OPTIONS": "--openssl-legacy-provider"
+      }
+    },
+    "functions": {
+      "api/*.js": {
+        "runtime": "nodejs16.x"
+      }
+    }
+  }
+  
