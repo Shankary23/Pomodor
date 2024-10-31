@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function About() {
+function About() {
 	return (
 		<div className=" w-11/12 mx-auto mt-36 text-white p-5 rounded-md">
 			<div>
@@ -22,7 +22,7 @@ export default function About() {
 					<span className="border-b-4 border-red-400">What</span> is Daily
 					Focus?
 				</h1>
-				<p className="mt-5 tracking-wide opacity-70 break-words text-lg">
+				<p className="mt-5 tracking-wide opacity-70 break-words text-lg break-words">
 					Daily focus is small clone project from{" "}
 					<a
 						href="https://pomofocus.io/"
@@ -44,3 +44,5 @@ export default function About() {
 		</div>
 	);
 }
+
+export default React.memo(About);
