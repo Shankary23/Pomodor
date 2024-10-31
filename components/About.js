@@ -1,23 +1,71 @@
-import React from "react";
+import React, { useState } from 'react';
 
 function About() {
+	const [tasks, setTasks] = useState([]);
+	const [newTask, setNewTask] = useState('');
+
+	const addTask = () => {
+		if(newTask.trim()==="") return;
+		setTasks([...tasks, { name: newTask, completedPomodoros: 0, requiredPomodoros: 4 }]);
+		setNewTask('');
+	};
+
+	const completePomodoro = (taskIndex) => {
+		const updatedTasks = [...tasks];
+		updatedTasks[taskIndex].completedPomodoros += 1;
+		setTasks(updatedTasks);
+	};
+
+	const deleteTask = (taskIndex) => {
+		const updatedTasks = tasks.filter((_, index) => index !== taskIndex);
+		setTasks(updatedTasks);
+	};
+
 	return (
-		<div className=" w-11/12 mx-auto mt-36 text-white p-5 rounded-md">
-			<div>
-				<h1 className="text-xl sm:text-2xl font-medium mt-5">
-					<span className="border-b-4 border-red-400">What</span> is Pomodoro
-					Technique?
-				</h1>
-				<p className="mt-5 tracking-wide opacity-70 text-lg">
-					The Pomodoro Technique is created by Francesco Cirillo for a more
-					productive way to work and study. The technique uses a timer to break
-					down work into intervals, traditionally 25 minutes in length,
-					separated by short breaks. Each interval is known as a pomodoro, from
-					the Italian word for 'tomato', after the tomato-shaped kitchen timer
-					that Cirillo used as a university student.
-				</p>
+		<div className="p-6 max-w-md mx-auto bg-white rounded-xl shadow-md space-y-4">
+			<h1 className="text-2xl font-bold text-gray-800 text-center">Task Tracker</h1>
+			<div className="flex space-x-2 mb-4">
+				<input
+					type="text"
+					value={newTask}
+					onChange={(e) => setNewTask(e.target.value)}
+					placeholder="New Task"
+					className="flex-grow border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+				/>
+				<button
+					onClick={addTask}
+					className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:ring-2 focus:ring-blue-400"
+				>
+					Add Task
+				</button>
 			</div>
-			
+
+			<ul className="space-y-2">
+				{tasks.map((task, index) => (
+					<li
+						key={index}
+						className="flex justify-between items-center p-3 bg-gray-100 rounded-md shadow-sm"
+					>
+						<div className="text-gray-700">
+							<strong>{task.name}</strong> - {task.completedPomodoros}/{task.requiredPomodoros} Pomodoros
+						</div>
+						<div className="flex space-x-2">
+							<button
+								onClick={() => completePomodoro(index)}
+								className="bg-green-500 text-white px-3 py-1 rounded-md hover:bg-green-600 focus:ring-2 focus:ring-green-400"
+							>
+								+1 Pomodoro
+							</button>
+							<button
+								onClick={() => deleteTask(index)}
+								className="bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-600 focus:ring-2 focus:ring-red-400"
+							>
+								Delete
+							</button>
+						</div>
+					</li>
+				))}
+			</ul>
 		</div>
 	);
 }
